@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funz_quiz/screens/auth/login/login_screen.dart';
 import 'package:funz_quiz/screens/leader_board_tab/leader_board_screen.dart';
 import 'package:funz_quiz/screens/main_tab_screen.dart';
 import 'package:funz_quiz/screens/quiz_tab/quiz_screen.dart';
@@ -11,6 +12,7 @@ final _shellNavigatorLeaderBoardKey = GlobalKey<NavigatorState>(debugLabel: 'Lea
 
 class QuizRouter {
   static const String splash = '/';
+  static const String login = '/login';
   static const String quiz = '/quiz';
   static const String leaderBoard = '/leaderBoard';
 
@@ -22,6 +24,10 @@ class QuizRouter {
       GoRoute(
         path: splash,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: login,
+        builder: (context, state) => const LoginScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
