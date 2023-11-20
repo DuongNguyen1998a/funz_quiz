@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                     style: GoogleFonts.poppins().copyWith(fontSize: 60, fontWeight: FontWeight.bold, height: 1.2),
                   ),
                   QuizPrimaryButton(
-                    onPressed: () => _googleLogin(bloc),
+                    onPressed: () async => await bloc.googleLogin(),
                     text: Strings.loginWithGoogle,
                     left: SvgPicture.asset('assets/icons/ic_google_login.svg', width: 32, height: 32),
                     right: state.isLoading
@@ -57,9 +57,5 @@ class LoginScreen extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<void> _googleLogin(LoginBloc bloc) async {
-    await bloc.googleLogin();
   }
 }
