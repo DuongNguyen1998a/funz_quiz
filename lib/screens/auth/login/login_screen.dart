@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (!state.isLoading && state.isLoginSuccess) {
             context.go(QuizRouter.quiz);
-          } else {}
+          }
         },
         builder: (context, state) {
           final bloc = context.read<LoginBloc>();
