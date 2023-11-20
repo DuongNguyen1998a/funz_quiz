@@ -12,8 +12,6 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   Future<void> googleLogin() async {
-    debugPrint('[LoginBloc] googleLogin run');
-    emit(state.copyWith(isLoading: true));
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
       final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -26,6 +24,9 @@ class LoginBloc extends Cubit<LoginState> {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
+
+        debugPrint('[LoginBloc] googleLogin run');
+        emit(state.copyWith(isLoading: true));
 
         final rs = await auth.signInWithCredential(credential);
 

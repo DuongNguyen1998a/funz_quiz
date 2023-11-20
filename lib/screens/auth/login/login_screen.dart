@@ -20,6 +20,19 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (!state.isLoading && state.isLoginSuccess) {
             context.go(QuizRouter.quiz);
+          } else if (!state.isLoading && !state.isLoginSuccess && state.error != '') {
+            SnackBar snackBar = SnackBar(
+              backgroundColor: context.colorTheme.whiteColor,
+              content: Text(
+                state.error,
+                style: GoogleFonts.poppins().copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.colorTheme.redColor,
+                ),
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
         builder: (context, state) {
@@ -33,12 +46,20 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Text(
                     Strings.loginTitle,
-                    style: GoogleFonts.poppins().copyWith(fontSize: 60, fontWeight: FontWeight.bold, height: 1.2),
+                    style: GoogleFonts.poppins().copyWith(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
                   ),
                   QuizPrimaryButton(
                     onPressed: () async => await bloc.googleLogin(),
                     text: Strings.loginWithGoogle,
-                    left: SvgPicture.asset('assets/icons/ic_google_login.svg', width: 32, height: 32),
+                    left: SvgPicture.asset(
+                      'assets/icons/ic_google_login.svg',
+                      width: 32,
+                      height: 32,
+                    ),
                     right: state.isLoading
                         ? SizedBox(
                             width: 24,
