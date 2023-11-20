@@ -12,7 +12,7 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   Future<void> googleLogin() async {
-    debugPrint('[LoginBloc] googleLogin run');
+    debugPrint('[LoginBloc] googleLogin run zzz');
     emit(state.copyWith(isLoading: true));
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
