@@ -16,9 +16,10 @@ class SplashScreen extends StatelessWidget {
         builder: (context, state) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (!state.isLoading && state.isAuthenticated) {
+              debugPrint('[SplashScreen] authenticated');
               context.go(QuizRouter.quiz);
-            }
-            else {
+            } else {
+              debugPrint('[SplashScreen] not authenticated');
               context.go(QuizRouter.login);
             }
             FlutterNativeSplash.remove();

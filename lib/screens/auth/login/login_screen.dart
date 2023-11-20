@@ -1,78 +1,65 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funz_quiz/router/quiz_router.dart';
+import 'package:funz_quiz/screens/auth/login/login_bloc.dart';
 import 'package:funz_quiz/shared/extensions/color_extension.dart';
+import 'package:funz_quiz/shared/ui/story_book.dart';
+import 'package:funz_quiz/shared/values/strings.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rive/rive.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const Positioned.fill(
-            child: RiveAnimation.asset(
-              'assets/anims/shapes.riv',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: const SizedBox.shrink(),
-            ),
-          ),
-          Positioned.fill(
-            child: Padding(
+    return BlocProvider(
+      create: (context) => LoginBloc(),
+      child: BlocConsumer<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (!state.isLoading && state.isLoginSuccess) {
+            context.go(QuizRouter.quiz);
+          } else {}
+        },
+        builder: (context, state) {
+          final bloc = context.read<LoginBloc>();
+          return QuizScaffold(
+            body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome to Quizz ?',
+                    Strings.loginTitle,
                     style: GoogleFonts.poppins().copyWith(fontSize: 60, fontWeight: FontWeight.bold, height: 1.2),
                   ),
-                  SizedBox(
-                    height: 64,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(context.colorTheme.whiteColor),
-                        surfaceTintColor: MaterialStateProperty.all(context.colorTheme.whiteColor),
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) return context.colorTheme.backgroundColor;
-                            return context.colorTheme.whiteColor;
-                          },
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            CupertinoIcons.arrow_right,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Sign in with Google',
-                            style: GoogleFonts.poppins().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
+                  QuizPrimaryButton(
+                    onPressed: () => _googleLogin(bloc),
+                    text: Strings.loginWithGoogle,
+                    left: SvgPicture.asset('assets/icons/ic_google_login.svg', width: 32, height: 32),
+                    right: state.isLoading
+                        ? SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              color: context.colorTheme.primaryColor,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : null,
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
+  }
+
+  Future<void> _googleLogin(LoginBloc bloc) async {
+    await bloc.googleLogin();
   }
 }
