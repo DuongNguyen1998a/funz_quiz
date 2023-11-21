@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
       create: (context) => SplashBloc(),
       child: BlocBuilder<SplashBloc, SplashState>(
         builder: (context, state) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
             if (!state.isLoading && state.isAuthenticated) {
               debugPrint('[SplashScreen] user authenticated');
               context.go(QuizRouter.quiz);
@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
             }
             FlutterNativeSplash.remove();
           });
-          return Container(color: Colors.white);
+          return const SizedBox.shrink();
         },
       ),
     );

@@ -13,25 +13,28 @@ class QuizScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const Positioned.fill(
-            child: RiveAnimation.asset(
-              'assets/anims/shapes.riv',
-              fit: BoxFit.cover,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const Positioned.fill(
+              child: RiveAnimation.asset(
+                'assets/anims/shapes.riv',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: const SizedBox.shrink(),
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: const SizedBox.shrink(),
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: body,
-          ),
-        ],
+            Positioned.fill(
+              child: body,
+            ),
+          ],
+        ),
       ),
     );
   }

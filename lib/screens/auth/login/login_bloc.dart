@@ -45,7 +45,7 @@ class LoginBloc extends Cubit<LoginState> {
       }
     } catch (e) {
       debugPrint('[LoginBloc] googleLogin error $e');
-      emit(state.copyWith(isLoading: false, error: 'Unknown error.', isLoginSuccess: false));
+      emit(state.copyWith(isLoading: false, error: 'Unknown error, please try again.', isLoginSuccess: false));
     }
   }
 }

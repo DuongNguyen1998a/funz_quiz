@@ -9,15 +9,19 @@ class QuizPrimaryButton extends StatelessWidget {
   final String text;
   final Widget? left;
   final Widget? right;
+  final Color? backgroundColor;
+  final TextAlign? textAlign;
 
   const QuizPrimaryButton({
     Key? key,
-    this.width,
+    this.width = 200,
     this.height = 64,
     required this.onPressed,
     required this.text,
     this.left,
     this.right,
+    this.backgroundColor,
+    this.textAlign,
   }) : super(key: key);
 
   @override
@@ -28,25 +32,29 @@ class QuizPrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(context.colorTheme.whiteColor),
-          surfaceTintColor: MaterialStateProperty.all(context.colorTheme.whiteColor),
+          backgroundColor: MaterialStateProperty.all(backgroundColor ?? context.colorTheme.whiteColor),
+          surfaceTintColor: MaterialStateProperty.all(backgroundColor ?? context.colorTheme.whiteColor),
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) return context.colorTheme.backgroundColor;
-              return context.colorTheme.whiteColor;
+              return backgroundColor ?? context.colorTheme.whiteColor;
             },
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (left != null) ...[
               left ?? const SizedBox.shrink(),
               const SizedBox(width: 8),
             ],
-            Text(
-              text,
-              style: GoogleFonts.poppins().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+            Expanded(
+              child: Text(
+                text,
+                style: GoogleFonts.poppins().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+                textAlign: textAlign,
+              ),
             ),
             if (right != null) ...[
               const SizedBox(width: 8),

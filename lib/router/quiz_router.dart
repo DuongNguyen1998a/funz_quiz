@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:funz_quiz/screens/auth/login/login_screen.dart';
 import 'package:funz_quiz/screens/main_tab_screen.dart';
@@ -20,7 +21,7 @@ class QuizRouter {
   static const String you = '/you';
 
   static GoRouter router = GoRouter(
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: kDebugMode,
     initialLocation: splash,
     navigatorKey: _rootNavigatorKey,
     routes: [

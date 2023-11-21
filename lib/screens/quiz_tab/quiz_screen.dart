@@ -11,17 +11,22 @@ class QuizScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuizScaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               Strings.quizTitle,
-              style: GoogleFonts.poppins().copyWith(fontSize: 60, fontWeight: FontWeight.bold, height: 1.2),
+              style: GoogleFonts.poppins().copyWith(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+                height: 1.2,
+              ),
             ),
             QuizPrimaryButton(
               onPressed: () {},
+              width: double.infinity,
               text: Strings.startPlaying,
               left: const Icon(
                 CupertinoIcons.arrow_right,

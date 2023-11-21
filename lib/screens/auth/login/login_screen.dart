@@ -5,6 +5,7 @@ import 'package:funz_quiz/router/quiz_router.dart';
 import 'package:funz_quiz/screens/auth/login/login_bloc.dart';
 import 'package:funz_quiz/shared/extensions/color_extension.dart';
 import 'package:funz_quiz/shared/ui/story_book.dart';
+import 'package:funz_quiz/shared/utils/utils.dart';
 import 'package:funz_quiz/shared/values/strings.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,25 +22,14 @@ class LoginScreen extends StatelessWidget {
           if (!state.isLoading && state.isLoginSuccess) {
             context.go(QuizRouter.quiz);
           } else if (!state.isLoading && !state.isLoginSuccess && state.error != '') {
-            SnackBar snackBar = SnackBar(
-              backgroundColor: context.colorTheme.whiteColor,
-              content: Text(
-                state.error,
-                style: GoogleFonts.poppins().copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: context.colorTheme.redColor,
-                ),
-              ),
-            );
-
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Utils.showSnackBar(context, state.error, context.colorTheme.redColor);
           }
         },
         builder: (context, state) {
           final bloc = context.read<LoginBloc>();
           return QuizScaffold(
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,13 +37,14 @@ class LoginScreen extends StatelessWidget {
                   Text(
                     Strings.loginTitle,
                     style: GoogleFonts.poppins().copyWith(
-                      fontSize: 60,
+                      fontSize: 50,
                       fontWeight: FontWeight.bold,
                       height: 1.2,
                     ),
                   ),
                   QuizPrimaryButton(
                     onPressed: () async => await bloc.googleLogin(),
+                    width: double.infinity,
                     text: Strings.loginWithGoogle,
                     left: SvgPicture.asset(
                       'assets/icons/ic_google_login.svg',
