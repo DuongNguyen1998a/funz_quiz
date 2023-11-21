@@ -7,6 +7,7 @@ import 'package:funz_quiz/shared/themes/light_theme.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  debugPrint('[Future<void> main()] start application');
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
