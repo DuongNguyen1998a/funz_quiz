@@ -95,8 +95,18 @@ class YouScreen extends StatelessWidget {
                     width: double.infinity,
                     text: 'Delete account',
                     left: Icon(
-                      CupertinoIcons.delete,
+                      Icons.delete_sweep_outlined,
                       color: context.colorTheme.redColor,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  QuizPrimaryButton(
+                    onPressed: () async => await _showPopupDeleteAccount(context),
+                    width: double.infinity,
+                    text: 'Give me feedback',
+                    left: const Icon(
+                      Icons.feedback_outlined,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -151,7 +161,7 @@ class YouScreen extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: QuizPrimaryButton(
-                      onPressed: () {},
+                      onPressed: () => context.pop(),
                       text: 'Close',
                       backgroundColor: context.colorTheme.grayColor,
                       textAlign: TextAlign.center,
