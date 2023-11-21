@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funz_quiz/shared/extensions/color_extension.dart';
+import 'package:funz_quiz/shared/values/strings.dart';
 import 'package:go_router/go_router.dart';
 
 class MainTabScreen extends StatelessWidget {
@@ -31,15 +32,15 @@ class MainTabScreen extends StatelessWidget {
           selectedIndex: navigationShell.currentIndex,
           destinations: const [
             NavigationDestination(
-              label: 'Quiz',
+              label: Strings.quizTab,
               icon: Icon(CupertinoIcons.question_diamond_fill),
             ),
             NavigationDestination(
-              label: 'Ranking',
+              label: Strings.rankingTab,
               icon: Icon(CupertinoIcons.arrow_up_arrow_down_circle_fill),
             ),
             NavigationDestination(
-              label: 'You',
+              label: Strings.youTab,
               icon: Icon(CupertinoIcons.person_alt_circle_fill),
             ),
           ],
